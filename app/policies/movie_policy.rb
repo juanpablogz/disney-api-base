@@ -1,0 +1,2 @@
+class MoviePolicy < CorePolicy
+end

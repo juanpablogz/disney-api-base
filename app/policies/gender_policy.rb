@@ -1,0 +1,2 @@
+class GenderPolicy < CorePolicy
+end

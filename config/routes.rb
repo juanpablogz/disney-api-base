@@ -19,6 +19,8 @@ Rails.application.routes.draw do
         get :must_update, on: :collection
       end
       resources :characters
+      resources :movies
+      resources :genders
     end
   end
 end
