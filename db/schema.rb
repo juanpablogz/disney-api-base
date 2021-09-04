@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_04_164859) do
+ActiveRecord::Schema.define(version: 2021_09_04_171403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -111,7 +111,9 @@ ActiveRecord::Schema.define(version: 2021_09_04_164859) do
     t.bigint "movie_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
     t.index ["movie_id"], name: "index_genders_on_movie_id"
+    t.index ["user_id"], name: "index_genders_on_user_id"
   end
 
   create_table "movies", force: :cascade do |t|
@@ -122,7 +124,9 @@ ActiveRecord::Schema.define(version: 2021_09_04_164859) do
     t.bigint "character_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
     t.index ["character_id"], name: "index_movies_on_character_id"
+    t.index ["user_id"], name: "index_movies_on_user_id"
   end
 
   create_table "settings", force: :cascade do |t|
@@ -161,5 +165,7 @@ ActiveRecord::Schema.define(version: 2021_09_04_164859) do
   add_foreign_key "characters", "users"
   add_foreign_key "exception_hunter_errors", "exception_hunter_error_groups", column: "error_group_id"
   add_foreign_key "genders", "movies"
+  add_foreign_key "genders", "users"
   add_foreign_key "movies", "characters"
+  add_foreign_key "movies", "users"
 end
