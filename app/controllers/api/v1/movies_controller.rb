@@ -10,12 +10,14 @@ module Api
       # GET /movie
       # GET /movie.json
       def index
-        @movie = movie.all
+        @movie = Movie.all
+        render json: @movie
       end
 
       # GET /movie/1
       # GET /movie/1.json
       def show
+        render json: @movie
       end
 
       # POST /movie
@@ -50,7 +52,7 @@ module Api
       private
         # Use callbacks to share common setup or constraints between actions.
         def set_movie
-          @movie = movie.find(params[:id])
+          @movie = Movie.find(params[:id])
         end
 
         # Only allow a list of trusted parameters through.
