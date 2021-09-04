@@ -17,6 +17,7 @@ module Api
       # GET /movie/1
       # GET /movie/1.json
       def show
+        # byebug
         render json: @movie
       end
 

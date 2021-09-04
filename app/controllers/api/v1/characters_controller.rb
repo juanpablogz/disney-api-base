@@ -10,7 +10,8 @@ module Api
       # GET /character
       # GET /character.json
       def index
-        @character = character.all
+        @character = Character.all
+        render json: @character
       end
 
       # GET /character/1
@@ -57,7 +58,7 @@ module Api
 
         # Only allow a list of trusted parameters through.
         def character_params
-          params.require(:character).permit(:name, :age, :weight, :history).merge(user_id: current_user.id)
+          params.require(:character).permit(:name, :age, :weight, :history, :image).merge(user_id: current_user.id)
         end
     end
   end
