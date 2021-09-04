@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_16_171441) do
+ActiveRecord::Schema.define(version: 2021_09_04_164859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -54,6 +54,17 @@ ActiveRecord::Schema.define(version: 2020_07_16_171441) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "characters", force: :cascade do |t|
+    t.string "name"
+    t.integer "age"
+    t.integer "weight"
+    t.text "history"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_characters_on_user_id"
+  end
+
   create_table "delayed_jobs", id: :serial, force: :cascade do |t|
     t.integer "priority", default: 0, null: false
     t.integer "attempts", default: 0, null: false
@@ -94,6 +105,26 @@ ActiveRecord::Schema.define(version: 2020_07_16_171441) do
     t.index ["error_group_id"], name: "index_exception_hunter_errors_on_error_group_id"
   end
 
+  create_table "genders", force: :cascade do |t|
+    t.string "name"
+    t.string "image"
+    t.bigint "movie_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["movie_id"], name: "index_genders_on_movie_id"
+  end
+
+  create_table "movies", force: :cascade do |t|
+    t.string "image"
+    t.string "title"
+    t.date "creating"
+    t.integer "rating"
+    t.bigint "character_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["character_id"], name: "index_movies_on_character_id"
+  end
+
   create_table "settings", force: :cascade do |t|
     t.string "key", null: false
     t.string "value"
@@ -121,10 +152,14 @@ ActiveRecord::Schema.define(version: 2020_07_16_171441) do
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
     t.json "tokens"
+    t.integer "role", default: 2
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "characters", "users"
   add_foreign_key "exception_hunter_errors", "exception_hunter_error_groups", column: "error_group_id"
+  add_foreign_key "genders", "movies"
+  add_foreign_key "movies", "characters"
 end

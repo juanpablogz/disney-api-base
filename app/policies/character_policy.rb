@@ -1,0 +1,2 @@
+class CharacterPolicy < CorePolicy
+end

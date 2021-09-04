@@ -4,11 +4,11 @@ module Api
       include Pundit
       include DeviseTokenAuth::Concerns::SetUserByToken
 
-      after_action :verify_authorized, except: :index
-      after_action :verify_policy_scoped, only: :index
+      # after_action :verify_authorized, :except => :index, unless: :devise_controller?
+      # after_action :verify_policy_scoped, only: :index
 
-      before_action :authenticate_user!, except: :status
-      skip_after_action :verify_authorized, only: :status
+      before_action :authenticate_user!, :except => [:status, :index]
+      # skip_after_action :verify_authorized, only: :status
 
       rescue_from ActiveRecord::RecordNotFound,        with: :render_not_found
       rescue_from ActiveRecord::RecordInvalid,         with: :render_record_invalid
@@ -33,6 +33,14 @@ module Api
       def render_parameter_missing(exception)
         logger.info { exception } # for logging
         render json: { error: I18n.t('api.errors.missing_param') }, status: :unprocessable_entity
+      end
+
+      def error_message(entity)
+        entity.errors.messages.values
+      end
+
+      def permission?(entity)
+        authorize entity
       end
     end
   end
