@@ -20,4 +20,5 @@
 class Movie < ApplicationRecord
   belongs_to :character
   belongs_to :user
+  has_many :genders
 end

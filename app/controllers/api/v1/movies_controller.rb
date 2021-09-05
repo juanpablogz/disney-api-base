@@ -10,8 +10,14 @@ module Api
       # GET /movie
       # GET /movie.json
       def index
+        if params[:name].present? || params[:genre].present? || params[:order].present?
+          search = SearchMovie.new(params)
+          movies = search.search_movie
+          render json: movies
+        else
         @movie = Movie.all
         render json: @movie
+        end
       end
 
       # GET /movie/1
