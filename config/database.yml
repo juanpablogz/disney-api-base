@@ -15,13 +15,4 @@ test:
  <<: *default
  database: disney-api-base_test
 
-production:
- <<: *default
-  adapter: postgresql
-  encoding: unicode
-  host: <%= ENV['DB_HOST'] || "localhost" %>
-  port: <%= ENV['DB_PORT'] || 5432 %>
-  username: <%= ENV['DB_USER'] %>
-  password: <%= ENV['DB_PASS'] %>
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
- #url
+
