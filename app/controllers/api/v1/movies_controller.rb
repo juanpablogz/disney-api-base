@@ -13,10 +13,10 @@ module Api
         if params[:name].present? || params[:genre].present? || params[:order].present?
           search = SearchMovie.new(params)
           movies = search.search_movie
-          render json: movies
+          render json: movies, each_serializer: SimpleMovieSerializer, status: :ok
         else
         @movie = Movie.all
-        render json: @movie
+        render json: @movie, each_serializer: SimpleMovieSerializer, status: :ok
         end
       end
 
@@ -44,7 +44,7 @@ module Api
       # PATCH/PUT /movie/1.json
       def update
         if @movie.update(movie_params)
-          render :show, status: :ok, location: @movie
+          render json: @movie, status: :ok
         else
           render json: @movie.errors, status: :unprocessable_entity
         end

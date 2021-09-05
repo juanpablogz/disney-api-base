@@ -13,10 +13,10 @@ module Api
         if params[:name].present? || params[:age].present? || params[:movies].present?
           search = Search.new(params)
           character = search.search_character
-          render json: character
+          render json: character, each_serializer: SimpleCharacterSerializer, status: :ok
         else
           @character = Character.all
-          render json: @character 
+          render json: @character, each_serializer: SimpleCharacterSerializer, status: :ok
         end
       end
 
@@ -24,7 +24,7 @@ module Api
       # GET /character/1.json
       def show
         # byebug
-        render json: @character
+        render json: @character, each_serializer: SimpleCharacterSerializer
       end
 
       # POST /character
@@ -44,7 +44,7 @@ module Api
       # PATCH/PUT /character/1.json
       def update
         if @character.update(character_params)
-          render :show, status: :ok, location: @character
+          render json: @character, status: :ok
         else
           render json: @character.errors, status: :unprocessable_entity
         end
@@ -62,7 +62,6 @@ module Api
           # byebug
           @character = Character.find(params[:id])
         end
-
         # Only allow a list of trusted parameters through.
         def character_params
           params.require(:character).permit(:name, :age, :weight, :history, :image).merge(user_id: current_user.id)
