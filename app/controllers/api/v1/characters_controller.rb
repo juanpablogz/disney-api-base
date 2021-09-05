@@ -10,13 +10,20 @@ module Api
       # GET /character
       # GET /character.json
       def index
-        @character = Character.all
-        render json: @character
+        if params[:name].present? || params[:age].present? || params[:movies].present?
+          search = Search.new(params)
+          character = search.search_character
+          render json: character
+        else
+          @character = Character.all
+          render json: @character 
+        end
       end
 
       # GET /character/1
       # GET /character/1.json
       def show
+        # byebug
         render json: @character
       end
 

@@ -19,5 +19,5 @@
 #
 class MovieSerializer < ActiveModel::Serializer
   attributes :image, :title, :rating, :creating, :character_id
-  belongs_to :character
+  # belongs_to :character
 end

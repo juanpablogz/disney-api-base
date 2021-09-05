@@ -18,5 +18,5 @@
 #
 class CharacterSerializer < ActiveModel::Serializer
   attributes :name, :age, :weight, :history, :image
-  has_many :movies
+  # has_many :movies
 end
