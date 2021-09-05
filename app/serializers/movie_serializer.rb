@@ -18,6 +18,6 @@
 #  index_movies_on_user_id       (user_id)
 #
 class MovieSerializer < ActiveModel::Serializer
-  attributes :image, :title, :rating, :creating, :character_id
+  attributes :id, :image, :title, :rating, :creating, :character_id
   belongs_to :character
 end

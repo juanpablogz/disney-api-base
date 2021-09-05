@@ -9,9 +9,10 @@ class SearchMovie
     if @params.keys.include?('name')
       @movie.where(title: @params[:name])
     elsif @params.keys.include?('genre')
-      @movie.where(title: @params[:name])
+      # byebug
+      @movie.where(genders: @params[:genre])
     elsif @params.keys.include?('order')
-      @movie.all.order(title: @params[:order])
+      @movie.all.order(id: @params[:order])
     else
       @movie
     end

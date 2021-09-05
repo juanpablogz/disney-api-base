@@ -17,6 +17,6 @@
 #  index_characters_on_user_id  (user_id)
 #
 class CharacterSerializer < ActiveModel::Serializer
-  attributes :name, :age, :weight, :history, :image
+  attributes :id, :name, :age, :weight, :history, :image
   has_many :movies
 end

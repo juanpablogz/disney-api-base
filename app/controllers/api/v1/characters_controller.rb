@@ -31,8 +31,9 @@ module Api
       # POST /character.json
       def create
         # byebug
-        @character = Character.new(character_params)
-
+        image = Cloudinary::Uploader.upload(params[:image])
+        @character = Character.new(name: params["name"], age: params["age"], weight: params["weight"], 
+                                   history: params["history"], image: image["secure_url"], user_id: current_user.id)
         if @character.save
           render json: @character
         else

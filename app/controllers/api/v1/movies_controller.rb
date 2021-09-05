@@ -31,8 +31,9 @@ module Api
       # POST /movie.json
       def create
         # byebug
-        @movie = Movie.new(movie_params)
-
+        image = Cloudinary::Uploader.upload(params[:image])
+        @movie = Movie.new(title: params["title"], rating: params["rating"], creating: params["creating"], 
+                               character_id: params["character_id"], image: image["secure_url"], user_id: current_user.id)
         if @movie.save
           render json: @movie
         else
