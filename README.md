@@ -16,3 +16,4 @@
 8. `rails s`
 9. You can now try your REST services!
 10. here you can see the endpoint documentation https://documenter.getpostman.com/view/8654902/U16gPShb
+11. this project was made based on https://github.com/rootstrap/rails_api_base
